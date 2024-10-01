@@ -1,0 +1,11 @@
+{
+  "name": "self-learning-manager",
+  "version": "1.0.0",
+  "description": "Self Learning Manager",
+  "workspaces": [
+    "api",
+    "client"
+  ],
+  "author": "",
+  "license": "ISC"
+}

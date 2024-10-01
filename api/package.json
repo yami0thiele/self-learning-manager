@@ -1,0 +1,11 @@
+{
+  "name": "self-learning-manager-api",
+  "version": "1.0.0",
+  "description": "API for Self Learning Manager",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
