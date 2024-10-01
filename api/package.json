@@ -3,9 +3,15 @@
   "version": "1.0.0",
   "description": "API for Self Learning Manager",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js"
+    "start": "bun index.ts",
+    "dev": "bun --watch index.ts"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "koa": "^2.15.3"
+  },
+  "devDependencies": {
+    "@types/koa": "^2.15.0"
+  }
 }

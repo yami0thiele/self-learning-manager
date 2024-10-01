@@ -7,5 +7,6 @@
     "client"
   ],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "private": "true"
 }
