@@ -1,17 +1,19 @@
 {
-  "name": "self-learning-manager-api",
-  "version": "1.0.0",
-  "description": "API for Self Learning Manager",
-  "scripts": {
-    "start": "bun index.ts",
-    "dev": "bun --watch index.ts"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "koa": "^2.15.3"
-  },
-  "devDependencies": {
-    "@types/koa": "^2.15.0"
-  }
+	"name": "self-learning-manager-api",
+	"version": "1.0.0",
+	"description": "API for Self Learning Manager",
+	"scripts": {
+		"start": "bun index.ts",
+		"dev": "bun --watch index.ts",
+		"check": "bunx biome check --write ."
+	},
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"koa": "^2.15.3"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "1.9.3",
+		"@types/koa": "^2.15.0"
+	}
 }
