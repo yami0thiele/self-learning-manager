@@ -1,4 +1,4 @@
 .env.local
 .env.development
 .env.production
-db/*.db
+_store/*.db

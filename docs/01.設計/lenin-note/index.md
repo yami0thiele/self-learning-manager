@@ -47,7 +47,7 @@ erDiagram
       date updated_at
     }
 
-    NoteColumnValue {
+    NoteColumnsRecords {
       number id
       number note_record_id
       number note_column_id
