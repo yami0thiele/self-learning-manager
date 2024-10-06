@@ -1,6 +1,6 @@
 import React from "react";
 import { Menu } from "./menu";
-import { cn } from "@/lib/utils";
+
 
 /**
  * CSS については下記レイアウトからサイドバー部分を除去しただけのもの。
@@ -14,12 +14,10 @@ export default function UserPanelLayout({
   return (
     <>
       <Menu />
-      <main className={
-        cn(
-          'ml-72',
-        )
-      }>
-        {children}
+      <main className="bg-zinc-50 ml-72 h-screen">
+        <div className="container pt-8 pb-8 px-4">
+          {children}
+        </div>
       </main>
     </>
   )
