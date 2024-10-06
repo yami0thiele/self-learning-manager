@@ -15,6 +15,10 @@ export default {
 		ctx.body = await book_service.findAll(ctx as TxContext, next);
 	},
 
+	searchBooksFts: async (ctx: Context, next: Next) => {
+		ctx.body = await book_service.fts(ctx as TxContext, next);
+	},
+
 	findBook: async (ctx: Context, next: Next) => {
 		ctx.body = await book_service.find(ctx as TxContext, next);
 	},
@@ -26,4 +30,9 @@ export default {
 	editBook: async (ctx: Context, next: Next) => {
 		ctx.body = await book_service.edit(ctx as TxContext, next);
 	},
+
+	deleteBook: async (ctx: Context, next: Next) => {
+		await book_service.delete(ctx as TxContext, next);
+		ctx.status = 204;
+	}
 };

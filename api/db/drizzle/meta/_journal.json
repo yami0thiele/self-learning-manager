@@ -8,6 +8,13 @@
 			"when": 1728118159838,
 			"tag": "0000_massive_monster_badoon",
 			"breakpoints": true
+		},
+		{
+			"idx": 1,
+			"version": "6",
+			"when": 1728202727852,
+			"tag": "0001_flashy_bloodscream",
+			"breakpoints": true
 		}
 	]
 }

@@ -5,7 +5,9 @@ const router = new Router();
 
 router.get("/lenin-note", lenin_note_controller.index);
 router.get("/lenin-note/books", lenin_note_controller.searchBooks);
+router.get("/lenin-note/fts/books", lenin_note_controller.searchBooksFts);
 router.post("/lenin-note/books", lenin_note_controller.createBook);
 router.put("/lenin-note/books/:id", lenin_note_controller.editBook);
+router.delete("/lenin-note/books/:id", lenin_note_controller.deleteBook);
 
 export default router;

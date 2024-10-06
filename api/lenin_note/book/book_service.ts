@@ -37,6 +37,11 @@ export default {
 		);
 	},
 
+	fts: async (ctx: TxContext, next: Next) => {
+		const query = ctx.request.query;
+		return await book_repository.fts(query.q as string, ctx);
+	},
+
 	create: async (ctx: TxContext, next: Next) => {
 		const book = book_command.newBook(ctx.request.body as BookData);
 		return await book_repository.create(book, ctx);
@@ -62,4 +67,17 @@ export default {
 		});
 		return await book_repository.update(book, ctx);
 	},
+
+	delete: async (ctx: TxContext, next: Next) => {
+		const id = Number.parseInt(ctx.params.id);
+		if (Number.isNaN(id)) {
+			throw new BadRequestError('idの形式が不正です');
+		}
+
+		if ((await book_repository.find(id, ctx)) == null) {
+			throw new NotFoundError('書籍が見つかりません。');
+		}
+
+		await book_repository.delete(id, ctx);
+	}
 };
