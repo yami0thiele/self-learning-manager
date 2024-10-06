@@ -14,13 +14,16 @@ export interface TxContext extends DbContext {
 
 export default function transaction() {
 	return async function transactionMiddleware(ctx: DbContext, next: Next) {
-		const db = ctx.db;
-		await db.transaction(async (tx) => {
+		let insideError: Error | null = null;
+		await ctx.db.transaction(async (tx) => {
 			ctx.tx = tx;
-			await next().catch((e) => {
-				tx.rollback();
-				throw e;
-			});
-		});
+			await next().catch(async (e) => {
+				insideError = e;
+				ctx.tx.rollback();
+			})
+		}).catch(_ => {});
+		if (insideError != null) {
+			throw insideError;
+		}
 	};
 }
