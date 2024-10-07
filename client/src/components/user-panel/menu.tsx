@@ -11,13 +11,13 @@ export function Menu() {
       groupLabel: '蔵書管理',
       menus: [
         {
-          href: '/books',
+          href: '/book',
           label: '蔵書一覧',
           icon: Library,
           active: location.pathname === '/books'
         },
         {
-          href: '/books/create',
+          href: '/book/create',
           label: '蔵書登録',
           icon: Book,
           active: location.pathname === '/books/create'

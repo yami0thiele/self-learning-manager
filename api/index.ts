@@ -6,8 +6,12 @@ import transaction from "./middlewares/transaction";
 import router from "./router";
 import errorHandler from "./middlewares/error_handler";
 import httpLog from "./middlewares/http_log";
+import cors from "@koa/cors";
 
 const app = new Koa();
+
+// Cors
+app.use(cors());
 
 // Trust Proxy
 app.proxy = true;

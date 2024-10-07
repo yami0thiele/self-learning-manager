@@ -17,6 +17,8 @@ import { Route as rootRoute } from './routes/__root'
 // Create Virtual Routes
 
 const IndexLazyImport = createFileRoute('/')()
+const BookIndexLazyImport = createFileRoute('/book/')()
+const BookCreateLazyImport = createFileRoute('/book/create')()
 
 // Create/Update Routes
 
@@ -24,6 +26,16 @@ const IndexLazyRoute = IndexLazyImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
+
+const BookIndexLazyRoute = BookIndexLazyImport.update({
+  path: '/book/',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/book/index.lazy').then((d) => d.Route))
+
+const BookCreateLazyRoute = BookCreateLazyImport.update({
+  path: '/book/create',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/book/create.lazy').then((d) => d.Route))
 
 // Populate the FileRoutesByPath interface
 
@@ -36,6 +48,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexLazyImport
       parentRoute: typeof rootRoute
     }
+    '/book/create': {
+      id: '/book/create'
+      path: '/book/create'
+      fullPath: '/book/create'
+      preLoaderRoute: typeof BookCreateLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/book/': {
+      id: '/book/'
+      path: '/book'
+      fullPath: '/book'
+      preLoaderRoute: typeof BookIndexLazyImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -43,32 +69,42 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
+  '/book/create': typeof BookCreateLazyRoute
+  '/book': typeof BookIndexLazyRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute
+  '/book/create': typeof BookCreateLazyRoute
+  '/book': typeof BookIndexLazyRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexLazyRoute
+  '/book/create': typeof BookCreateLazyRoute
+  '/book/': typeof BookIndexLazyRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/book/create' | '/book'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/book/create' | '/book'
+  id: '__root__' | '/' | '/book/create' | '/book/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute
+  BookCreateLazyRoute: typeof BookCreateLazyRoute
+  BookIndexLazyRoute: typeof BookIndexLazyRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
+  BookCreateLazyRoute: BookCreateLazyRoute,
+  BookIndexLazyRoute: BookIndexLazyRoute,
 }
 
 export const routeTree = rootRoute
@@ -83,11 +119,19 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/"
+        "/",
+        "/book/create",
+        "/book/"
       ]
     },
     "/": {
       "filePath": "index.lazy.tsx"
+    },
+    "/book/create": {
+      "filePath": "book/create.lazy.tsx"
+    },
+    "/book/": {
+      "filePath": "book/index.lazy.tsx"
     }
   }
 }
