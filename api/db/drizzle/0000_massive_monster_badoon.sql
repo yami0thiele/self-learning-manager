@@ -19,8 +19,8 @@ CREATE TABLE `note_columns_records` (
 	`note_column_id` integer NOT NULL,
 	`note_record_id` integer NOT NULL,
 	`content` text,
-	`created_at` text DEFAULT CURRENT_TIME,
-	`updated_at` text DEFAULT CURRENT_TIME,
+	`created_at` text DEFAULT CURRENT_TIMESTAMP,
+	`updated_at` text DEFAULT CURRENT_TIMESTAMP,
 	FOREIGN KEY (`note_column_id`) REFERENCES `note_columns`(`id`) ON UPDATE no action ON DELETE no action,
 	FOREIGN KEY (`note_record_id`) REFERENCES `note_records`(`id`) ON UPDATE no action ON DELETE no action
 );
@@ -28,8 +28,8 @@ CREATE TABLE `note_columns_records` (
 CREATE TABLE `note_records` (
 	`id` integer PRIMARY KEY NOT NULL,
 	`note_id` integer NOT NULL,
-	`created_at` text DEFAULT CURRENT_TIME,
-	`updated_at` text DEFAULT CURRENT_TIME,
+	`created_at` text DEFAULT CURRENT_TIMESTAMP,
+	`updated_at` text DEFAULT CURRENT_TIMESTAMP,
 	FOREIGN KEY (`note_id`) REFERENCES `notes`(`id`) ON UPDATE no action ON DELETE no action
 );
 --> statement-breakpoint
@@ -42,8 +42,8 @@ CREATE TABLE `notes` (
 	`id` integer PRIMARY KEY NOT NULL,
 	`book_id` integer NOT NULL,
 	`note_template_id` integer NOT NULL,
-	`created_at` text DEFAULT CURRENT_TIME,
-	`updated_at` text DEFAULT CURRENT_TIME,
+	`created_at` text DEFAULT CURRENT_TIMESTAMP,
+	`updated_at` text DEFAULT CURRENT_TIMESTAMP,
 	FOREIGN KEY (`book_id`) REFERENCES `books`(`id`) ON UPDATE no action ON DELETE no action,
 	FOREIGN KEY (`note_template_id`) REFERENCES `note_templates`(`id`) ON UPDATE no action ON DELETE no action
 );

@@ -10,4 +10,8 @@ router.post("/lenin-note/books", lenin_note_controller.createBook);
 router.put("/lenin-note/books/:id", lenin_note_controller.editBook);
 router.delete("/lenin-note/books/:id", lenin_note_controller.deleteBook);
 
+router.post("/lenin-note/notes", lenin_note_controller.createNote);
+router.get("/lenin-note/notes/:id", lenin_note_controller.getNote);
+router.put("/lenin-note/notes/:id", lenin_note_controller.writeNote);
+
 export default router;
