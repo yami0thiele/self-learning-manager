@@ -1,19 +1,19 @@
 import type { Next } from "koa";
+import { BadRequestError, NotFoundError } from "../../exception/client_error";
 import type { TxContext } from "../../middlewares/transaction";
 import book_command from "./book_command";
 import type { BookData } from "./book_data";
 import book_repository from "./book_repository";
-import { BadRequestError, NotFoundError } from "../../exception/client_error";
 
 export default {
 	find: async (ctx: TxContext, next: Next) => {
 		const id = Number.parseInt(ctx.params.id);
 		if (Number.isNaN(id)) {
-			throw new BadRequestError('idの形式が不正です');
+			throw new BadRequestError("idの形式が不正です");
 		}
 		const book = await book_repository.find(id, ctx);
 		if (book == null) {
-			throw new NotFoundError('書籍が見つかりません。');
+			throw new NotFoundError("書籍が見つかりません。");
 		}
 		return book;
 	},
@@ -50,11 +50,11 @@ export default {
 	edit: async (ctx: TxContext, next: Next) => {
 		const id = Number.parseInt(ctx.params.id);
 		if (Number.isNaN(id)) {
-			throw new BadRequestError('idの形式が不正です');
+			throw new BadRequestError("idの形式が不正です");
 		}
 
 		if ((await book_repository.find(id, ctx)) == null) {
-			throw new NotFoundError('書籍が見つかりません。');
+			throw new NotFoundError("書籍が見つかりません。");
 		}
 
 		const body = ctx.request.body as BookData;
@@ -71,13 +71,13 @@ export default {
 	delete: async (ctx: TxContext, next: Next) => {
 		const id = Number.parseInt(ctx.params.id);
 		if (Number.isNaN(id)) {
-			throw new BadRequestError('idの形式が不正です');
+			throw new BadRequestError("idの形式が不正です");
 		}
 
 		if ((await book_repository.find(id, ctx)) == null) {
-			throw new NotFoundError('書籍が見つかりません。');
+			throw new NotFoundError("書籍が見つかりません。");
 		}
 
 		await book_repository.delete(id, ctx);
-	}
+	},
 };

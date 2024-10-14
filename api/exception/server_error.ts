@@ -1,3 +1,3 @@
 export class InternalServerError extends Error {
-  public status: number = 500;
+	public status = 500;
 }

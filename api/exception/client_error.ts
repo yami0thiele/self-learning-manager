@@ -1,11 +1,11 @@
 export class ClientError extends Error {
-  public status: number = 400;
+	public status = 400;
 }
 
 export class BadRequestError extends ClientError {
-  public status: number = 400;
+	public status = 400;
 }
 
 export class NotFoundError extends ClientError {
-  public status: number = 404;
+	public status = 404;
 }

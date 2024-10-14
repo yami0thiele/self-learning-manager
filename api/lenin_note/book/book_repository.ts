@@ -53,10 +53,13 @@ export default {
 	},
 
 	fts: async (q: string, ctx: TxContext) => {
-		const segments = Array.from(new Intl.Segmenter("ja", { granularity: "word" }).segment(q)).filter(s => s.isWordLike).map(s => s.segment);
+		const segments = Array.from(
+			new Intl.Segmenter("ja", { granularity: "word" }).segment(q),
+		)
+			.filter((s) => s.isWordLike)
+			.map((s) => s.segment);
 
-		return await ctx.tx.all(sql
-			`SELECT books.* FROM books JOIN books_fts ON books_fts.rowid = books.id
+		return await ctx.tx.all(sql`SELECT books.* FROM books JOIN books_fts ON books_fts.rowid = books.id
 			WHERE books_fts MATCH ${segments.join(" ")}
 			ORDER BY rank
 			LIMIT 10
@@ -68,10 +71,18 @@ export default {
 			.insert(schema.books)
 			.values([book])
 			.returning();
-		
-		const segments = Array.from(new Intl.Segmenter("ja", { granularity: "word" }).segment(`${registeredBook.title} ${registeredBook.author}`)).filter(s => s.isWordLike).map(s => s.segment);
 
-		await ctx.tx.run(sql`INSERT INTO books_fts (rowid, segments) VALUES (${registeredBook.id}, ${segments.join(" ")})`);
+		const segments = Array.from(
+			new Intl.Segmenter("ja", { granularity: "word" }).segment(
+				`${registeredBook.title} ${registeredBook.author}`,
+			),
+		)
+			.filter((s) => s.isWordLike)
+			.map((s) => s.segment);
+
+		await ctx.tx.run(
+			sql`INSERT INTO books_fts (rowid, segments) VALUES (${registeredBook.id}, ${segments.join(" ")})`,
+		);
 
 		return registeredBook;
 	},
@@ -83,14 +94,22 @@ export default {
 			.where(eq(schema.books.id, book.id))
 			.returning();
 
-		const newSegments = Array.from(new Intl.Segmenter("ja", { granularity: "word" }).segment(`${updatedBook.title} ${updatedBook.author}`)).filter(s => s.isWordLike).map(s => s.segment);
-		await ctx.tx.run(sql`UPDATE books_fts SET segments = ${newSegments.join(" ")} WHERE rowid = ${updatedBook.id}`);
-		
+		const newSegments = Array.from(
+			new Intl.Segmenter("ja", { granularity: "word" }).segment(
+				`${updatedBook.title} ${updatedBook.author}`,
+			),
+		)
+			.filter((s) => s.isWordLike)
+			.map((s) => s.segment);
+		await ctx.tx.run(
+			sql`UPDATE books_fts SET segments = ${newSegments.join(" ")} WHERE rowid = ${updatedBook.id}`,
+		);
+
 		return updatedBook;
 	},
 
 	delete: async (id: number, ctx: TxContext) => {
 		await ctx.tx.delete(schema.books).where(eq(schema.books.id, id));
 		await ctx.tx.run(sql`DELETE FROM books_fts WHERE rowid = ${id}`);
-	}
+	},
 };

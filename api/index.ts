@@ -1,12 +1,12 @@
+import cors from "@koa/cors";
 import Koa from "koa";
 import koaBodyparser from "koa-bodyparser";
 import leninNoteRouter from "./lenin_note/router";
 import db from "./middlewares/db";
-import transaction from "./middlewares/transaction";
-import router from "./router";
 import errorHandler from "./middlewares/error_handler";
 import httpLog from "./middlewares/http_log";
-import cors from "@koa/cors";
+import transaction from "./middlewares/transaction";
+import router from "./router";
 
 const app = new Koa();
 

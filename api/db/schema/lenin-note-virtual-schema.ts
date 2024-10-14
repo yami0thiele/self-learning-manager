@@ -1,4 +1,4 @@
 export interface books_fts {
-  rowid: number;
-  segments: string;
+	rowid: number;
+	segments: string;
 }
